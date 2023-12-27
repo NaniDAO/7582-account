@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.19;
 
 import {SimpleAccount} from '@aa/samples/SimpleAccount.sol';
 
-/// @notice ERC7570 extends ERC4337 accounts by specifying a plugin scheme for user operations.
-contract ERC7570 is SimpleAccount {
+/// @notice ERC7582 extends ERC4337 accounts by specifying a plugin scheme for user operations.
+contract ERC7582 is SimpleAccount {
     function validateUserOp(
         UserOperation calldata userOp, 
         bytes32 userOpHash, 
@@ -17,7 +17,7 @@ contract ERC7570 is SimpleAccount {
             if (validationData == SIGNATURE_VALIDATION_FAILED) {
                 return SIGNATURE_VALIDATION_FAILED;
             }
-            ERC7570 validator = ERC7570(address(uint160(uint256(validatorHash))));
+            ERC7582 validator = ERC7582(address(uint160(uint256(validatorHash))));
             validationData = validator.validateUserOp(userOp, userOpHash, missingAccountFunds);
         } else {
             validationData = _validateSignature(userOp, userOpHash);
